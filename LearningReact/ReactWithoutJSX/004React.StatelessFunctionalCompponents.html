@@ -17,6 +17,22 @@
 
     <script>
         // Pure React and JavaScript code
+        const IngredientsList = props => React.createElement('ul', {className:'ingridents'},
+            props.ingredients.map((ingrident, index)=>React.createElement('li', {key:index}, ingrident))
+        );
+
+        const ingredients = [
+                "1 lb Salmon",
+                "1 cup Pine Nuts",
+                "2 cups Butter Lettuce",
+                "1 Yellow Squash",
+                "1/2 cup Olive Oil",
+                "3 cloves of Garlic"
+        ];
+
+        const list = React.createElement(IngredientsList, { ingredients }, null);
+
+        ReactDOM.render(list, document.getElementById('react-container'));
     </script>
 
 </body>
