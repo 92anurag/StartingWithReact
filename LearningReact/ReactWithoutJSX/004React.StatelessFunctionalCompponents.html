@@ -17,8 +17,8 @@
 
     <script>
         // Pure React and JavaScript code
-        const IngredientsList = ({ingredients}) => React.createElement('ul', {className:'ingridents'},
-            ingredients.map((ingrident, index)=>React.createElement('li', {key:index}, ingrident))
+        const IngredientsList = ({ingredients}) => React.DOM.ul({className:'ingridents'},
+            ingredients.map((ingrident, index)=>React.DOM.li({key:index}, ingrident))
         );
 
         const ingredients = [
