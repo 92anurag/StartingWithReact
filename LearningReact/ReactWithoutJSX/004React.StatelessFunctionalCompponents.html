@@ -30,9 +30,9 @@
                 "3 cloves of Garlic"
         ];
 
-        const list = React.createElement(IngredientsList, { ingredients }, null);
-
-        ReactDOM.render(list, document.getElementById('react-container'));
+        const Ingredients = React.createFactory(IngredientsList);
+        
+        ReactDOM.render(Ingredients({ingredients}), document.getElementById('react-container'));
     </script>
 
 </body>
