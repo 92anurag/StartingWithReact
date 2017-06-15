@@ -21,6 +21,11 @@
     <script type="text/babel">
         const Summary = React.createClass({
             displayName:"Summary",
+            propTypes: {
+                ingredients: React.PropTypes.array,
+                steps: React.PropTypes.array,
+                title: React.PropTypes.string
+            },
             render() {
                 const {ingredients, steps, title} = this.props;
                 return (
