@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>Property Validation for Components created with createClass</title>
+</head>
+
+<body>
+
+    <!-- Target container -->
+    <div class="react-container" id="react-container"></div>
+
+    <!-- React library & ReactDOM-->
+    <script src="https://unpkg.com/react@15.4.2/dist/react.js"></script>
+    <script src="https://unpkg.com/react-dom@15.4.2/dist/react-dom.js"></script>
+
+    <!--  babel core library to transpile code on the fly in the browser -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-core/5.8.29/browser.js"></script>
+
+    <script type="text/babel">
+        const Summary = React.createClass({
+            displayName:"Summary",
+            render() {
+                const {ingredients, steps, title} = this.props;
+                return (
+                    <div className='summary'>
+                        <h1>{title}</h1>
+                        <p>
+                            <span>{ingredients.length} Ingredients</span> | 
+                            <span> {steps.length} Steps</span>
+                        </p>
+                    </div>
+                )
+            }
+        });
+
+        ReactDOM.render(
+            <Summary
+                title="Peanut Butter and Jelly"
+                ingredients="peanut butter, jelly, bread"
+                steps = "spread peanut butter and jelly between bread" />,
+            document.getElementById('react-container'));
+    </script>
+
+</body>
