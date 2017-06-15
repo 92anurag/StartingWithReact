@@ -77,13 +77,13 @@
 
 
         // A stateless functional component for the Menu of Recipes
-        const Menu = (props) => 
+        const Menu = ({title, recipes}) => 
             <article>
                 <header>
-                    <h1>{props.title}</h1>
+                    <h1>{title}</h1>
                 </header>
                 <div className="recipes">
-                    {props.recipes.map((recipe, i) =>
+                    {recipes.map((recipe, i) =>
                         <Recipe key ={i} {...recipe}/>
                     )}
                 </div>
