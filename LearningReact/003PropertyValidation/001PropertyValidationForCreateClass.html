@@ -22,8 +22,8 @@
         const Summary = React.createClass({
             displayName:"Summary",
             propTypes: {
-                ingredients: React.PropTypes.array,
-                steps: React.PropTypes.array,
+                ingredients: React.PropTypes.array.isRequired,
+                steps: React.PropTypes.array.isRequired,
                 title: React.PropTypes.string
             },
             render() {
