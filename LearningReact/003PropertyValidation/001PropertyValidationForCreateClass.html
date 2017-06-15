@@ -24,7 +24,11 @@
             propTypes: {
                 ingredients: React.PropTypes.array,
                 steps: React.PropTypes.array,
-                title: React.PropTypes.string
+                title: (props, propName) => (typeof props[propName] !== 'string') ?
+                    new Error('A title must be a string') :
+                    (props[propName].length > 20) ?
+                        new Error('title is over 20 characters') :
+                        null
             },
             getDefaultProps() {
                 return {
@@ -48,7 +52,7 @@
         });
 
         ReactDOM.render(
-            <Summary/>,
+            <Summary title='Amandeep Chawla'/>,
             document.getElementById('react-container'));
     </script>
 
