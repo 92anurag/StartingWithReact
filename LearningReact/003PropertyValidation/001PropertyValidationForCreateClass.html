@@ -22,9 +22,16 @@
         const Summary = React.createClass({
             displayName:"Summary",
             propTypes: {
-                ingredients: React.PropTypes.array.isRequired,
-                steps: React.PropTypes.array.isRequired,
+                ingredients: React.PropTypes.array,
+                steps: React.PropTypes.array,
                 title: React.PropTypes.string
+            },
+            getDefaultProps() {
+                return {
+                    ingredients: [],
+                    steps: [],
+                    title: "[recipe]"
+                }
             },
             render() {
                 const {ingredients, steps, title} = this.props;
@@ -32,8 +39,8 @@
                     <div className='summary'>
                         <h1>{title}</h1>
                         <p>
-                            <span>{ingredients.length} Ingredients</span> | 
-                            <span> {steps.length} Steps</span>
+                            <span>{ingredients.length} Ingredients | </span>
+                            <span>{steps.length} Steps</span>
                         </p>
                     </div>
                 )
