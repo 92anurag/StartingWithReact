@@ -1,38 +1,26 @@
-import React, {createClass} from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import Star from './Star';
 
-const StarRating = createClass({
-    displayName: 'StarRating',
 
-    propTypes: {
-        totalStars:PropTypes.number
-    },
+export class StarRating extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            starsSelected: props.starsSelected || 0
+        };
 
-    getDefaultProps() {
-        return {totalStars: 5}
-    },
-
-    getInitialState() {
-        return {
-            starsSelected: 0
-        }
-    },
-
-    componentWillMount() {
-        const {starsSelected} = this.props;
-        if (starsSelected) {
-            this.setState({starsSelected});
-        }
-    },
+        this.change = this.change.bind(this);
+    }
 
     change(starsSelected) {
         this.setState({starsSelected});
-    },
+    }
 
     render() {
         const {totalStars} = this.props;
         const {starsSelected} = this.state;
+
         return (
             <div className="star-rating">
                 {[...Array(totalStars)].map( (n, i) =>
@@ -45,6 +33,4 @@ const StarRating = createClass({
             </div>
         );
     }
-});
-
-export default StarRating;
+}
