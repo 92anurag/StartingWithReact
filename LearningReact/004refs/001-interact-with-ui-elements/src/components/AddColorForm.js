@@ -1,6 +1,7 @@
 /*jshint esversion: 6 */
 
 import React, {Component} from 'react';
+import PropTypes from 'prop-types';
 
 export default class AddColorForm extends Component {
     constructor() {
@@ -12,7 +13,7 @@ export default class AddColorForm extends Component {
     }
 
     static propTypes = {
-        onNewColor: React.PropTypes.func
+        onNewColor: PropTypes.func
     }
 
     static defaultProps = {
