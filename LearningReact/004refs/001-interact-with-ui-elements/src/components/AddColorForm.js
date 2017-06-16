@@ -11,12 +11,18 @@ export default class AddColorForm extends Component {
         this.submit = this.submit.bind(this);
     }
 
+    static propTypes = {
+        onNewColor: React.PropTypes.func
+    }
+
+    static defaultProps = {
+        onNewColor: f => f
+    }
+
     submit(e) {
         const {_title, _color} = this.refs;
         e.preventDefault();
-        if (typeof this.props.onNewColor === 'function') {
-            this.props.onNewColor(_title.value, _color.value);
-        }
+        this.props.onNewColor(_title.value, _color.value);
         _title.value = '';
         _color.value = '#000000';
         _title.focus();
