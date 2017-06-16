@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import StarRating from './StarRatingAsStatelessFunctionalComponent';
+import '../stylesheets/Color.css'
 
 const Color = ({ title, color, rating=0, onRemove=f=>f, onRate=f=>f }) => {
     return (
@@ -18,8 +19,8 @@ const Color = ({ title, color, rating=0, onRemove=f=>f, onRate=f=>f }) => {
 }
 
 Color.propTypes = {
-    title: PropTypes.string,
-    color: PropTypes.string,
+    title: PropTypes.string.isRequired,
+    color: PropTypes.string.isRequired,
     rating: PropTypes.number,
     onRemove: PropTypes.func,
     onRate: PropTypes.func

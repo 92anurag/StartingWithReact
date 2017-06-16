@@ -2,6 +2,7 @@
 
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
+import '../stylesheets/AddColorForm.css'
 
 export default class AddColorForm extends Component {
     constructor() {
@@ -31,7 +32,7 @@ export default class AddColorForm extends Component {
 
     render() {
         return (
-            <form onSubmit={this.submit}>
+            <form className="add-color"  onSubmit={this.submit}>
                 <input ref='_title' type='text' placeholder='color title...' required/>
                 <input ref='_color' type='color' required/>
                 <button>ADD</button>
@@ -39,4 +40,3 @@ export default class AddColorForm extends Component {
         );
     }
 }
-

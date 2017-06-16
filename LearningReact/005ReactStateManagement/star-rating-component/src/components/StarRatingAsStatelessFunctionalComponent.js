@@ -10,7 +10,6 @@ const StarRating = ({starsSelected = 0, totalStars = 5, onRate = f => f }) => {
                   selected={i<starsSelected}
                   onClick={() => onRate(i+1)} />
             )}
-            <br/>
             <p>{starsSelected} of {totalStars} stars</p>
         </div>
     );
