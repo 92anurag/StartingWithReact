@@ -8,5 +8,6 @@ import './index.css';
 
 window.React = React;
 
-ReactDOM.render(<AddColorForm />, document.getElementById('root'));
+const logColor = (title, color) => console.log(`New Color: ${title} | ${color}`);
+ReactDOM.render(<AddColorForm onNewColor={logColor} />, document.getElementById('root'));
 registerServiceWorker();

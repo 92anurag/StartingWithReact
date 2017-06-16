@@ -14,7 +14,9 @@ export default class AddColorForm extends Component {
     submit(e) {
         const {_title, _color} = this.refs;
         e.preventDefault();
-        this.props.onNewColor(_title.value, _color.value);
+        if (typeof this.props.onNewColor === 'function') {
+            this.props.onNewColor(_title.value, _color.value);
+        }
         _title.value = '';
         _color.value = '#000000';
         _title.focus();
