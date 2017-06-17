@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>Property Validation for Components created with createClass</title>
+</head>
+
+<body>
+
+    <!-- Target container -->
+    <div class="react-container" id="react-container"></div>
+
+    <!-- React library & ReactDOM-->
+    <script src="https://unpkg.com/react@15.4.2/dist/react.js"></script>
+    <script src="https://unpkg.com/react-dom@15.4.2/dist/react-dom.js"></script>
+
+    <!--  babel core library to transpile code on the fly in the browser -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-core/5.8.29/browser.js"></script>
+
+    <script type="text/babel">
+        const getFakeMembers = count => new Promise((resolves, rejects) => {
+            try {
+                const api = `https://api.randomuser.me/?nat=US&results=${count}`;
+                const request = new XMLHttpRequest();
+                request.open('GET', api);
+                request.onload = () => (request.status == 200) ?
+                    resolves(JSON.parse(request.response).results) :
+                    reject(Error(request.statusText));
+                request.onerror = err => rejects(err);
+                request.send();
+            } catch(err) {
+                rejects(err);
+            }
+        });
+
+        const Member = ({ email, picture, name, location }) =>
+            <div className="member">
+                <img src={picture.thumbnail} alt="" />
+                <h1>{name.first} {name.last}</h1>
+                <p><a href={"mailto:" + email}>{email}</a></p>
+                <p>{location.city}, {location.state}</p>
+            </div>
+
+
+        class MemberList extends React.Component {
+            constructor(props) {
+                super(props);
+                this.state = {
+                    members: [],
+                    loading: false,
+                    error: null
+                };
+            }
+
+            componentWillMount() {
+                this.setState({loading:true});
+                getFakeMembers(this.props.count)
+                    .then(members=>{
+                        this.setState({members, loading:false});
+                    })
+                    .catch(error => {
+                        this.setState({error, loading:false});
+                    })
+            }
+
+            componentWillUpdate() {
+                console.log('updating lifecycle');
+            }
+
+            render() {
+                const {members, loading, error} = this.state;
+                return(
+                    <div className='member-list'>
+                        { (loading) ?
+                            <span>loading Members</span> :
+                            (members.length) ?
+                                members.map((member, index) => <Member key={index} {...member} />) :
+                                <span>0 members loaded</span>
+                        }
+                        {(error) ? <p>Error Loading Members: <b>{error.name}</b>:<i>{error.message}</i></p> : ''}
+                    </div>
+                );
+            }
+        }
+        ReactDOM.render(
+            <MemberList count={10}/>,
+            document.getElementById('react-container'));
+    </script>
+
+</body>
