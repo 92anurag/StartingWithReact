@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="utf-8">
-    <title>Property Validation for Components created with createClass</title>
+    <title>Component Life Cycle</title>
 </head>
 
 <body>
@@ -66,6 +66,30 @@
 
             componentWillUpdate() {
                 console.log('updating lifecycle');
+            }
+
+            /**
+             * componentDidMount is another good place to make API requests.
+             * This method is invoked after the component has rendered, so any setState calls from this method will
+             * kick off the updating lifecycle and rerender the component.
+             * componentDidMount is also a good place to initialize any third-party JavaScript that requires a DOM.
+             * For instance, you may want to incorporate a drag-and-drop library or a library that handles
+             * touch events. Typically, these libraries require a DOM before they can be initialized.
+             * Another good use for componentDidMount is to start background processes like intervals or timers.
+             */
+            componentDidMount() {
+                console.log('componentDidMount lifecycle');
+            }
+
+            /**
+             * Any processes started in componentDidMount or componentWillMount can be cleaned up in
+             * componentWillUnmount. You don’t want to leave background processes running when they are not needed.
+             * Components are unmounted when their parents remove them or they have been unmounted with the
+             * unmountComponentAtNode function found in react-dom. This method is used to unmount the root component.
+             * When a root component is unmounted, its children are unmounted first.
+             */
+            componentWillUnmount() {
+                console.log('componentWillUnmount lifecycle');
             }
 
             render() {
