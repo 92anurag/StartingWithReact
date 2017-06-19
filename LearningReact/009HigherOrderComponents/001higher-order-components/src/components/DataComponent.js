@@ -22,7 +22,7 @@ const DataComponent = ( ComposedComponent, url ) =>
             this.setState( { loading: true } );
             fetch( url )
                 .then( response => response.json() )
-                .then( obj => { return ( obj.results ) ? obj.results : obj; } )
+                .then( obj => ( ( obj.results ) ? obj.results : obj ) )
                 .then( data => this.setState( {
                     loaded: true,
                     loading: false,
