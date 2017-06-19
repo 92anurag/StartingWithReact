@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>Component Life Cycle</title>
+</head>
+
+<body>
+
+    <!-- Target container -->
+    <div class="react-container" id="react-container"></div>
+
+    <!-- React library & ReactDOM-->
+    <script src="https://unpkg.com/react@15.4.2/dist/react.js"></script>
+    <script src="https://unpkg.com/react-dom@15.4.2/dist/react-dom.js"></script>
+
+    <!--  babel core library to transpile code on the fly in the browser -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-core/5.8.29/browser.js"></script>
+
+    <script type="text/babel">
+        let {Children, PropTypes} = React;
+        let { render } = ReactDOM;
+
+        const Display = ( {ifTruthy = true, children } ) =>
+            (ifTruthy) ? Children.only(children) : null
+
+        const age = 22;
+
+        ReactDOM.render(
+            <Display ifTruthy={age >= 21}>
+                <h1>You can enter</h1>
+            </Display>,
+            document.getElementById('react-container'));
+    </script>
+
+</body>
