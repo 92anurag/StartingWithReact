@@ -1,40 +1,14 @@
-import React, { Component } from 'react';
-import fetch from 'isomorphic-fetch';
+import React from 'react';
 
-export default class PeopleList extends Component {
-    constructor( props ) {
-        super( props );
-        this.state = {
-            data: [],
-            loaded: false,
-            loading: false,
-        };
-    }
+// eslint-disable-next-line react/prop-types
+const PeopleList = ( { data } ) => (
+    <ol className="people-list"> {
+        data.map( ( person, index ) => {
+            const { first, last } = person.name;
+            // eslint-disable-next-line react/no-array-index-key
+            return ( <li key={ index } >{ first } { last } </li> );
+        } ) }
+    </ol>
+);
 
-    componentWillMount() {
-        this.setState( { loading: true } );
-        fetch( 'https://randomuser.me/api/?results=10' )
-            .then( response => response.json() )
-            .then( obj => obj.results )
-            .then( data => this.setState( {
-                loaded: true,
-                loading: false,
-                data,
-            } ) );
-    }
-
-    render() {
-        const { data, loading } = this.state;
-        return (
-            ( loading ) ?
-                <div>Loading...</div> :
-                <ol className="people-list">
-                    { data.map( ( person, i ) => {
-                        const { first, last } = person.name;
-                        // eslint-disable-next-line react/no-array-index-key
-                        return ( <li key={ i }>{ first } { last }</li> );
-                    } ) }
-                </ol>
-        );
-    }
-}
+export default PeopleList;
