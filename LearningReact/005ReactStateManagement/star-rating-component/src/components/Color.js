@@ -23,6 +23,10 @@ export default class Color extends React.Component {
         this.style = { backgroundColor: '#CCC' };
     }
 
+    componentWillUpdate() {
+        this.style = null;
+    }
+
     render() {
         const { title, color, rating, onRemove, onRate } = this.props;
         return (
