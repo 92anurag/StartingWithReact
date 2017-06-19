@@ -22,7 +22,7 @@ const DataComponent = ( ComposedComponent, url ) =>
             this.setState( { loading: true } );
             fetch( url )
                 .then( response => response.json() )
-                .then( obj => obj.results )
+                .then( obj => { return ( obj.results ) ? obj.results : obj; } )
                 .then( data => this.setState( {
                     loaded: true,
                     loading: false,
@@ -35,7 +35,7 @@ const DataComponent = ( ComposedComponent, url ) =>
                 <div className="data-component"> {
                     ( this.state.loading ) ?
                         <div>Loading...</div> :
-                        <ComposedComponent { ...this.state } /> }
+                        <ComposedComponent { ...this.state } { ...this.props } /> }
                 </div>
             );
         }
