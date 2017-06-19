@@ -28,15 +28,25 @@ export default class Color extends React.Component {
         return rating !== nextProps.rating;
     }
 
-    componentWillUpdate() {
+    componentWillUpdate( nextProps ) {
+        const { title, rating } = this.props;
         this.style = null;
+        this.titleHeading.style.backgroundColor = 'red';
+        this.titleHeading.style.color = 'white';
+        // eslint-disable-next-line no-alert
+        alert( `${ title }: rating ${ rating } -> ${ nextProps.rating }` );
+    }
+
+    componentDidUpdate() {
+        this.titleHeading.style.backgroundColor = '';
+        this.titleHeading.style.color = 'black';
     }
 
     render() {
         const { title, color, rating, onRemove, onRate } = this.props;
         return (
             <section className="color" style={ this.style }>
-                <h1>{title}</h1>
+                <h1 ref={ ( element ) => { this.titleHeading = element; } }> {title}</h1>
                 <button onClick={ onRemove }>X</button>
                 <div className="color" style={ { backgroundColor: color } } />
                 <div>
