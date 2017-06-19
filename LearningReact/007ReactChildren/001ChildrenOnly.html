@@ -19,20 +19,28 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-core/5.8.29/browser.js"></script>
 
     <script type="text/babel">
-        let {Children, PropTypes} = React;
-        let { render } = ReactDOM;
+        const {Children, PropTypes} = React;
+        const { render } = ReactDOM;
+
+        const findChild = (children, child) =>
+            Children.toArray(children).filter(c => c.type === child)[0];
+
+        const WhenTruthy = ({children}) => Children.only(children);
+        const WhenFalsy = ({children}) => Children.only(children);
 
         const Display = ( {ifTruthy = true, children } ) =>
-            (ifTruthy) ? Children.only(children) : null
+            (ifTruthy) ? findChild(children, WhenTruthy) : findChild(children, WhenFalsy);
 
-        const age = 22;
+        const age = 19;
 
         ReactDOM.render(
             <Display ifTruthy={age >= 21}>
-                <div>
-                <h1>You can enter</h1>
-                <h2>You age is {age}</h2>
-                </div>
+                <WhenTruthy>
+                    <h1>You can Enter</h1>
+                </WhenTruthy>
+                <WhenFalsy>
+                    <h1>Beat it Kid</h1>
+                </WhenFalsy>
             </Display>,
             document.getElementById('react-container'));
     </script>
