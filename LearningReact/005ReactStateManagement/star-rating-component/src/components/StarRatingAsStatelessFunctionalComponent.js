@@ -21,8 +21,8 @@ StarRating.propTypes = {
 
 StarRating.defaultProps = {
     starsSelected: 0,
-    totalStars: PropTypes.number,
-    onRate: PropTypes.func,
+    totalStars: 5,
+    onRate: f => f,
 };
 
 export default StarRating;
