@@ -1,6 +1,6 @@
 import expect from 'jest-matchers';
 
-import { color } from './reducers';
+import { color, colors } from './reducers';
 import C from './constants';
 
 describe( 'color reducer', () => {
@@ -32,7 +32,7 @@ describe( 'color reducer', () => {
         };
 
         const action = {
-            type: 'RATE_COLOR',
+            type: C.actions.RATE_COLOR,
             id: '4243e1p0-9abl-4e90-95p4-8001l8yf3036',
             rating: 4,
         };
@@ -56,7 +56,7 @@ describe( 'color reducer', () => {
         };
 
         const action = {
-            type: 'RATE_COLOR',
+            type: C.actions.RATE_COLOR,
             id: '4243e1p0-9abl-4e90-95p4-8001l8yf3036',
             rating: 4,
         };
@@ -69,5 +69,111 @@ describe( 'color reducer', () => {
             expect( newState[ key ] ).toBe( existingColor[ key ] );
         }
         expect( newState.rating ).toBe( action.rating );
+    } );
+} );
+
+describe( 'colors reducer', () => {
+    test( 'ADD_COLOR', () => {
+        const currentColors = [
+            {
+                id: '9813e2p4-3abl-2e44-95p4-8001l8yf3036',
+                title: 'Berry Blue',
+                color: '#000066',
+                rating: 0,
+                timestamp: 'Thu Mar 10 2016 01:11:12 GMT-0800 (PST)',
+            },
+        ];
+
+        const action = {
+            type: C.actions.ADD_COLOR,
+            id: '5523e7p8-3ab2-1e35-95p4-8001l8yf3036',
+            title: 'Party Pink',
+            color: '#F142FF',
+            timestamp: 'Thu Mar 10 2016 01:11:12 GMT-0800 (PST)',
+        };
+
+        const newState = colors( currentColors, action );
+        expect( newState.length ).toBe( 2 );
+        const existingColor = newState[ 0 ];
+        const newColor = newState[ 1 ];
+        Object.keys( currentColors[ 0 ] ).map( ( key ) => {
+            expect( existingColor[ key ] ).toBe( currentColors[ 0 ][ key ] );
+            if ( key === 'rating' ) {
+                expect( newColor[ key ] ).toBe( 0 );
+            } else {
+                expect( newColor[ key ] ).toBe( action[ key ] );
+            }
+            return true;
+        } );
+    } );
+
+    test( 'RATE_COLOR', () => {
+        const currentColors = [
+            {
+                id: '9813e2p4-3abl-2e44-95p4-8001l8yf3036',
+                title: 'Berry Blue',
+                color: '#000066',
+                rating: 0,
+                timestamp: 'Thu Mar 10 2016 01:11:12 GMT-0800 (PST)',
+            },
+            {
+                id: '5523e7p8-3ab2-1e35-95p4-8001l8yf3036',
+                title: 'Party Pink',
+                color: '#F142FF',
+                rating: 2,
+                timestamp: 'Thu Mar 10 2016 01:11:12 GMT-0800 (PST)',
+            },
+        ];
+        const action = {
+            type: C.actions.RATE_COLOR,
+            id: '9813e2p4-3abl-2e44-95p4-8001l8yf3036',
+            rating: 4,
+        };
+
+        const newColors = colors( currentColors, action );
+        expect( newColors.length ).toBe( currentColors.length );
+        const [ oldColor1, oldColor2 ] = currentColors;
+        const [ color1, color2 ] = newColors;
+        Object.keys( color1 ).map( ( key ) => {
+            expect( color2[ key ] ).toBe( oldColor2[ key ] );
+            if ( key === 'rating' ) {
+                expect( color1[ key ] ).toBe( action.rating );
+            } else {
+                expect( color1[ key ] ).toBe( oldColor1[ key ] );
+            }
+            return true;
+        } );
+    } );
+
+    test( 'REMOVE_COLOR', () => {
+        const currentColors = [
+            {
+                id: '9813e2p4-3abl-2e44-95p4-8001l8yf3036',
+                title: 'Berry Blue',
+                color: '#000066',
+                rating: 0,
+                timestamp: 'Thu Mar 10 2016 01:11:12 GMT-0800 (PST)',
+            },
+            {
+                id: '5523e7p8-3ab2-1e35-95p4-8001l8yf3036',
+                title: 'Party Pink',
+                color: '#F142FF',
+                rating: 2,
+                timestamp: 'Thu Mar 10 2016 01:11:12 GMT-0800 (PST)',
+            },
+        ];
+        const action = {
+            type: C.actions.REMOVE_COLOR,
+            id: '9813e2p4-3abl-2e44-95p4-8001l8yf3036',
+        };
+
+        const newColors = colors( currentColors, action );
+        expect( newColors.length ).toBe( currentColors.length - 1 );
+        const [ , oldColor2 ] = currentColors;
+        const [ color2 ] = newColors;
+        Object.keys( color2 ).map( ( key ) => {
+            expect( color2[ key ] ).toBe( oldColor2[ key ] );
+            return true;
+        } );
     } );
 } );
