@@ -1,4 +1,4 @@
-import Dispatcher from 'flux';
+import { Dispatcher } from 'flux';
 
 export default class CountdownDispatcher extends Dispatcher {
     handleAction( action ) {
