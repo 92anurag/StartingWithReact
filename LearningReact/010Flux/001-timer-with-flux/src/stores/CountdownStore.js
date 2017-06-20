@@ -1,0 +1,31 @@
+import { EventEmitter } from 'events';
+
+export default class CountdownStore extends EventEmitter {
+    constructor( count = 5, dispatcher ) {
+        super();
+        this.count = count;
+        this.dispatcherIndex = dispatcher.register( this.dispatch.bind( this ) );
+    }
+
+    get count() {
+        return this.count;
+    }
+
+    dispatch( payload ) {
+        const { type, count } = payload.action;
+        switch ( type ) {
+        case 'TICK':
+            this.count = this.count - 1;
+            this.emit = ( 'TICK', this.count );
+            return true;
+
+        case 'RESET':
+            this.count = count;
+            this.emit( 'RESET', this.count );
+            return true;
+
+        default:
+            return false;
+        }
+    }
+}
