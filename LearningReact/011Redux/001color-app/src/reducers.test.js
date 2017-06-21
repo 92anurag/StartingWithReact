@@ -1,6 +1,6 @@
 import expect from 'jest-matchers';
 
-import { color, colors } from './reducers';
+import { color, colors, sort } from './reducers';
 import C from './constants';
 
 describe( 'color reducer', () => {
@@ -175,5 +175,51 @@ describe( 'colors reducer', () => {
             expect( color2[ key ] ).toBe( oldColor2[ key ] );
             return true;
         } );
+    } );
+} );
+
+describe( 'sort reducer', () => {
+    test( 'empty state and empty action', () => {
+        const oldState = undefined;
+        const action = {
+            type: C.actions.ADD_COLOR,
+            sortBy: C.sortOptions.SORTED_BY_TITLE,
+        };
+
+        const newState = sort( oldState, action );
+        expect( newState ).toBe( C.sortOptions.SORTED_BY_DATE );
+    } );
+
+    test( 'valid state with invalid action', () => {
+        const oldState = C.sortOptions.SORTED_BY_RATING;
+        const action = {
+            type: C.actions.ADD_COLOR,
+            sortBy: C.sortOptions.SORTED_BY_TITLE,
+        };
+
+        const newState = sort( oldState, action );
+        expect( newState ).toBe( C.sortOptions.SORTED_BY_RATING );
+    } );
+
+    test( 'valid state with valid action', () => {
+        const oldState = C.sortOptions.SORTED_BY_RATING;
+        const action = {
+            type: C.actions.SORT_COLORS,
+            sortBy: C.sortOptions.SORTED_BY_TITLE,
+        };
+
+        const newState = sort( oldState, action );
+        expect( newState ).toBe( C.sortOptions.SORTED_BY_TITLE );
+    } );
+
+    test( 'invalid state with valid action', () => {
+        const oldState = undefined;
+        const action = {
+            type: C.actions.SORT_COLORS,
+            sortBy: C.sortOptions.SORTED_BY_TITLE,
+        };
+
+        const newState = sort( oldState, action );
+        expect( newState ).toBe( C.sortOptions.SORTED_BY_TITLE );
     } );
 } );
