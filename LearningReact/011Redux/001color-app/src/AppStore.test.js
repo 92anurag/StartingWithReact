@@ -1,7 +1,6 @@
 import expect from 'jest-matchers';
 import AppStore from './AppStore';
 import initialState from './InitialState';
-import C from './constants';
 
 describe( 'AppStore', () => {
     test( 'Initial state is ', () => {
@@ -40,7 +39,7 @@ describe( 'AppStore', () => {
         const action = {
             type: 'RATE_COLOR',
             id: '2222e1p5-3abl-0p523-30e4-8001l8yf2222',
-            rating: 5
+            rating: 5,
         };
 
         const oldState = AppStore.getState();
@@ -56,6 +55,5 @@ describe( 'AppStore', () => {
         expect( newState.colors[ 4 ].color ).toBe( oldState.colors[ 4 ].color );
         expect( newState.colors[ 4 ].timestamp ).toBe( oldState.colors[ 4 ].timestamp );
         expect( newState.colors[ 4 ].rating ).toBe( action.rating );
-
     } );
 } );
