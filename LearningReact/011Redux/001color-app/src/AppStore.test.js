@@ -8,6 +8,8 @@ describe( 'AppStore', () => {
             // eslint-disable-next-line no-console
             console.log( 'color count: ', AppStore.getState().colors.length );
         } );
+        global.console.groupCollapsed = () => {};
+        global.console.groupEnd = () => {};
     } );
 
     test( 'Initial state is ', () => {
