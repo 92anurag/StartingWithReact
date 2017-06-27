@@ -3,6 +3,13 @@ import AppStore from './AppStore';
 import initialState from './InitialState';
 
 describe( 'AppStore', () => {
+    beforeAll( () => {
+        AppStore.subscribe( () => {
+            // eslint-disable-next-line no-console
+            console.log( 'color count: ', AppStore.getState().colors.length );
+        } );
+    } );
+
     test( 'Initial state is ', () => {
         const state = AppStore.getState();
         expect( state ).toBe( initialState );
