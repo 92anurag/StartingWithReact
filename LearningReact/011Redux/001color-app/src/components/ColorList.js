@@ -2,33 +2,33 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Color from './Color';
 import '../stylesheets/ColorList.css';
+import { rateColor, removeColor } from '../actionCreators';
 
-const ColorList = ( { colors = [], onRate = f => f, onRemove = f => f } ) => (
-    <div className="color-list">
-        {( colors.length === 0 ) ?
-            <p> No Colors Listed. (Add a color) </p> :
-                colors.map( color =>
-                    ( <Color
-                        key={ color.id }
-                        { ...color }
-                        onRate={ rating => onRate( color.id, rating ) }
-                        onRemove={ () => onRemove( color.id ) }
-                    /> ),
-                )
-            }
-    </div>
+const ColorList = ( { store } ) => {
+    const { colors, sort } = store.getState();
+    const sortedColors = [ ...colors ];
+    return (
+        <div className="color-list">
+            {( colors.length === 0 ) ?
+                <p> No Colors Listed. (Add a color) </p> :
+                    sortedColors.map( color =>
+                        ( <Color
+                            key={ color.id }
+                            { ...color }
+                            onRate={ rating => store.dispatch( rateColor( color.id, rating ) ) }
+                            onRemove={ () => store.dispatch( removeColor( color.id ) ) }
+                        /> ),
+                    )
+                }
+        </div>
     );
-
-ColorList.propTypes = {
-    colors: PropTypes.arrayOf( PropTypes.number ),
-    onRate: PropTypes.func,
-    onRemove: PropTypes.func,
 };
 
-ColorList.defaultProps = {
-    colors: [],
-    onRate: f => f,
-    onRemove: f => f,
+ColorList.propTypes = {
+    store: PropTypes.shape( {
+        dispatch: PropTypes.func.isRequired,
+        getState: PropTypes.func.isRequired,
+    } ).isRequired,
 };
 
 export default ColorList;

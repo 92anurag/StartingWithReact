@@ -1,14 +1,13 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import '../stylesheets/AddColorForm.css';
+import { addColor } from '../actionCreators';
 
 export default class AddColorForm extends Component {
     static propTypes = {
-        onNewColor: PropTypes.func,
-    }
-
-    static defaultProps = {
-        onNewColor: f => f,
+        store: PropTypes.shape( {
+            dispatch: PropTypes.func.isRequired,
+        } ).isRequired,
     }
 
     constructor() {
@@ -22,7 +21,7 @@ export default class AddColorForm extends Component {
     submit( e ) {
         const { titleInput, colorInput } = this;
         e.preventDefault();
-        this.props.onNewColor( titleInput.value, colorInput.value );
+        this.props.store.dispatch( addColor( titleInput.value, colorInput.value ) );
         titleInput.value = '';
         colorInput.value = '#000000';
         titleInput.focus();

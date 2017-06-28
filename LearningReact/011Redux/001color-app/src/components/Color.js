@@ -19,29 +19,6 @@ export default class Color extends React.Component {
         onRate: f => f,
     }
 
-    componentWillMount() {
-        this.style = { backgroundColor: '#CCC' };
-    }
-
-    shouldComponentUpdate( nextProps ) {
-        const { rating } = this.props;
-        return rating !== nextProps.rating;
-    }
-
-    componentWillUpdate( nextProps ) {
-        const { title, rating } = this.props;
-        this.style = null;
-        this.titleHeading.style.backgroundColor = 'red';
-        this.titleHeading.style.color = 'white';
-        // eslint-disable-next-line no-alert
-        alert( `${ title }: rating ${ rating } -> ${ nextProps.rating }` );
-    }
-
-    componentDidUpdate() {
-        this.titleHeading.style.backgroundColor = '';
-        this.titleHeading.style.color = 'black';
-    }
-
     render() {
         const { title, color, rating, onRemove, onRate } = this.props;
         return (

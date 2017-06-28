@@ -35,5 +35,5 @@ export const addColor = ( title, color ) => ( {
     id: v4(),
     title,
     color,
-    timeStamp: new Date().toString(),
+    timestamp: new Date().toString(),
 } );

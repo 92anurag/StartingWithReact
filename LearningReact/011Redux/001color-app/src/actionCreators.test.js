@@ -49,6 +49,6 @@ describe( 'actionCreaters', () => {
         expect( action.title ).toBe( 'a' );
         expect( action.color ).toBe( '#FF0000' );
         expect( typeof action.id ).toBe( 'string' );
-        expect( typeof action.timeStamp ).toBe( 'string' );
+        expect( typeof action.timestamp ).toBe( 'string' );
     } );
 } );
