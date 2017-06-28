@@ -17,10 +17,12 @@ export const sortColors = ( sortedBy ) => {
     const action = { type: C.actions.SORT_COLORS };
     switch ( sortedBy ) {
     case 'rating':
+    case C.sortOptions.SORTED_BY_RATING:
         action.sortBy = C.sortOptions.SORTED_BY_RATING;
         break;
 
     case 'title':
+    case C.sortOptions.SORTED_BY_TITLE:
         action.sortBy = C.sortOptions.SORTED_BY_TITLE;
         break;
 

@@ -3,10 +3,11 @@ import PropTypes from 'prop-types';
 import Color from './Color';
 import '../stylesheets/ColorList.css';
 import { rateColor, removeColor } from '../actionCreators';
+import { sortFunction } from '../lib/array-helpers';
 
 const ColorList = ( { store } ) => {
     const { colors, sort } = store.getState();
-    const sortedColors = [ ...colors ];
+    const sortedColors = [ ...colors ].sort( sortFunction( sort ) );
     return (
         <div className="color-list">
             {( colors.length === 0 ) ?

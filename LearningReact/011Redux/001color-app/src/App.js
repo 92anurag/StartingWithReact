@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 
 import logo from './logo.svg';
 import './App.css';
+import SortMenu from './components/SortMenu';
 import AddColorForm from './components/AddColorForm';
 import ColorList from './components/ColorList';
 
@@ -13,6 +14,7 @@ const App = ( { store } ) => (
             <h2>Welcome to React</h2>
         </div>
         <div className="app">
+            <SortMenu store={ store } />
             <AddColorForm store={ store } />
             <ColorList store={ store } />
         </div>
@@ -20,7 +22,10 @@ const App = ( { store } ) => (
 );
 
 App.propTypes = {
-    store: PropTypes.object,
+    store: PropTypes.shape( {
+        dispatch: PropTypes.func.isRequired,
+        getState: PropTypes.func.isRequired,
+    } ).isRequired,
 };
 
 App.defaultProps = {
