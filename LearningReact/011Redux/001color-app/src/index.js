@@ -9,7 +9,6 @@ const render = () => {
     ReactDOM.render( <App store={ AppStore } />, document.getElementById( 'root' ) );
 }
 
-AppStore.subscribe( render );
 render();
 
 registerServiceWorker();
