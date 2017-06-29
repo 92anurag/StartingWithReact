@@ -2,10 +2,9 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Color from './Color';
 import '../stylesheets/ColorList.css';
-import { rateColor, removeColor } from '../actionCreators';
 import { sortFunction } from '../lib/array-helpers';
 
-const ColorList = ( { store } ) => {
+const ColorList = ( props, { store } ) => {
     const { colors, sort } = store.getState();
     const sortedColors = [ ...colors ].sort( sortFunction( sort ) );
     return (
@@ -16,8 +15,6 @@ const ColorList = ( { store } ) => {
                         ( <Color
                             key={ color.id }
                             { ...color }
-                            onRate={ rating => store.dispatch( rateColor( color.id, rating ) ) }
-                            onRemove={ () => store.dispatch( removeColor( color.id ) ) }
                         /> ),
                     )
                 }
@@ -25,9 +22,8 @@ const ColorList = ( { store } ) => {
     );
 };
 
-ColorList.propTypes = {
+ColorList.contextTypes = {
     store: PropTypes.shape( {
-        dispatch: PropTypes.func.isRequired,
         getState: PropTypes.func.isRequired,
     } ).isRequired,
 };

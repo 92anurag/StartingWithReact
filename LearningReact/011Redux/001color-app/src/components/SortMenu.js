@@ -10,10 +10,12 @@ const options = {
     rating: 'SORTED_BY_RATING',
 };
 
-const SortMenu = ( { store } ) => (
+const SortMenu = ( props, { store } ) => (
     <nav className="sortmenu">
         <h1>Sort Colors</h1>
         { Object.keys( options ).map( ( item, i ) => (
+            /* eslint-disable jsx-a11y/href-no-hash */
+            /* eslint-disable react/no-array-index-key */
             <a
                 key={ i }
                 href="#"
@@ -25,12 +27,14 @@ const SortMenu = ( { store } ) => (
             >
                 {item}
             </a>
+            /* eslint-enable jsx-a11y/href-no-hash */
+            /* eslint-enable react/no-array-index-key */
            ),
         )}
     </nav>
 );
 
-SortMenu.propTypes = {
+SortMenu.contextTypes = {
     store: PropTypes.shape( {
         dispatch: PropTypes.func.isRequired,
         getState: PropTypes.func.isRequired,

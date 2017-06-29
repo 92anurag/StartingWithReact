@@ -4,7 +4,7 @@ import '../stylesheets/AddColorForm.css';
 import { addColor } from '../actionCreators';
 
 export default class AddColorForm extends Component {
-    static propTypes = {
+    static contextTypes = {
         store: PropTypes.shape( {
             dispatch: PropTypes.func.isRequired,
         } ).isRequired,
@@ -21,7 +21,7 @@ export default class AddColorForm extends Component {
     submit( e ) {
         const { titleInput, colorInput } = this;
         e.preventDefault();
-        this.props.store.dispatch( addColor( titleInput.value, colorInput.value ) );
+        this.context.store.dispatch( addColor( titleInput.value, colorInput.value ) );
         titleInput.value = '';
         colorInput.value = '#000000';
         titleInput.focus();
