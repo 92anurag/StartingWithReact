@@ -1,41 +1,33 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import StarRating from './StarRatingAsStatelessFunctionalComponent';
-import { rateColor, removeColor } from '../actionCreators';
 import '../stylesheets/Color.css';
 
 // eslint-disable-next-line react/prefer-stateless-function
 export default class Color extends React.Component {
     static propTypes = {
-        id: PropTypes.string.isRequired,
         title: PropTypes.string.isRequired,
         color: PropTypes.string.isRequired,
         rating: PropTypes.number,
+        onRemove: PropTypes.func,
+        onRate: PropTypes.func,
     }
 
     static defaultProps = {
         rating: 0,
-    }
-
-    static contextTypes = {
-        store: PropTypes.shape( {
-            dispatch: PropTypes.func.isRequired,
-        } ).isRequired,
+        onRemove: f => f,
+        onRate: f => f,
     }
 
     render() {
-        const { id, title, color, rating } = this.props;
-        const { store } = this.context;
+        const { title, color, rating, onRemove, onRate } = this.props;
         return (
             <section className="color" style={ this.style }>
                 <h1 ref={ ( element ) => { this.titleHeading = element; } }> {title}</h1>
-                <button onClick={ () => store.dispatch( removeColor( id ) ) }>X</button>
+                <button onClick={ onRemove }>X</button>
                 <div className="color" style={ { backgroundColor: color } } />
                 <div>
-                    <StarRating
-                        starsSelected={ rating }
-                        onRate={ newRating => store.dispatch( rateColor( id, newRating ) ) }
-                    />
+                    <StarRating starsSelected={ rating } onRate={ onRate } />
                 </div>
             </section>
         );

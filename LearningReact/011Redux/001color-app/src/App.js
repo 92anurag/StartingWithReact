@@ -3,9 +3,7 @@ import PropTypes from 'prop-types';
 
 import logo from './logo.svg';
 import './App.css';
-import SortMenu from './components/SortMenu';
-import AddColorForm from './components/AddColorForm';
-import ColorList from './components/ColorList';
+import { NewColor, Menu, Colors } from './components/containerComponents';
 
 class App extends Component {
     static propTypes = {
@@ -49,9 +47,9 @@ class App extends Component {
                     <h2>Welcome to React</h2>
                 </div>
                 <div className="app">
-                    <SortMenu />
-                    <AddColorForm />
-                    <ColorList />
+                    <Menu />
+                    <NewColor />
+                    <Colors />
                 </div>
             </div>
         );

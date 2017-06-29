@@ -2,30 +2,37 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Color from './Color';
 import '../stylesheets/ColorList.css';
-import { sortFunction } from '../lib/array-helpers';
 
-const ColorList = ( props, { store } ) => {
-    const { colors, sort } = store.getState();
-    const sortedColors = [ ...colors ].sort( sortFunction( sort ) );
-    return (
-        <div className="color-list">
-            {( colors.length === 0 ) ?
-                <p> No Colors Listed. (Add a color) </p> :
-                    sortedColors.map( color =>
-                        ( <Color
-                            key={ color.id }
-                            { ...color }
-                        /> ),
-                    )
-                }
-        </div>
+const ColorList = ( { colors = [], onRate = f => f, onRemove = f => f } ) => (
+    <div className="color-list">
+        {( colors.length === 0 ) ?
+            <p> No Colors Listed. (Add a color) </p> :
+                colors.map( color =>
+                    ( <Color
+                        key={ color.id }
+                        { ...color }
+                        onRate={ rating => onRate( color.id, rating ) }
+                        onRemove={ () => onRemove( color.id ) }
+                    /> ),
+                )
+            }
+    </div>
     );
+
+ColorList.propTypes = {
+    colors: PropTypes.arrayOf( PropTypes.shape( {
+        title: PropTypes.string.isRequired,
+        color: PropTypes.string.isRequired,
+        rating: PropTypes.number,
+    } ) ),
+    onRate: PropTypes.func,
+    onRemove: PropTypes.func,
 };
 
-ColorList.contextTypes = {
-    store: PropTypes.shape( {
-        getState: PropTypes.func.isRequired,
-    } ).isRequired,
+ColorList.defaultProps = {
+    colors: [],
+    onRate: f => f,
+    onRemove: f => f,
 };
 
 export default ColorList;
