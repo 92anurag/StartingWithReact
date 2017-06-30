@@ -37,8 +37,9 @@ export const Contact = () => (
     </section>
 );
 
-export const Whoops404 = () => (
+// eslint-disable-next-line react/prop-types
+export const Whoops404 = ( { location } ) => (
     <div className="whoops-404">
-        <h1>Resource not found</h1>
+        <h1>Resource not found at { location.pathname }</h1>
     </div>
 );
